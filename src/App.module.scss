@@ -1,0 +1,17 @@
+.barDiv {
+  width: 10%;
+  background-color: black;
+}
+
+.barsWrapper {
+  display: flex;
+  border: 5px solid gray;
+  border-radius: 25px;
+  overflow: hidden;
+  width: 90vw;
+  margin: 0 auto;
+  justify-content: center;
+  background-color: white;
+  align-items: flex-end;
+  height: 40vh;
+}
