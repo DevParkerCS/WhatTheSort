@@ -44,7 +44,7 @@ export const insertionSort = async (
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve(true);
-        }, 5)
+        }, 1)
       );
       divsToSort[j + 1] = divsToSort[j];
       j = j - 1;

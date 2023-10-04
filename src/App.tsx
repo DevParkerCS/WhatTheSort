@@ -74,7 +74,7 @@ function App() {
 
   return (
     <div>
-      <Nav setSortType={setSortType} />
+      <Nav setSortType={setSortType} isSorting={isSorting} />
       <div className={styles.contentWrapper}>
         <div className={styles.barsWrapper}>
           {divsToSort.map((m) => {

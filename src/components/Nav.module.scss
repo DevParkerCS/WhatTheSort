@@ -54,3 +54,23 @@
     }
   }
 }
+
+.dropInactive.dropDown {
+  pointer-events: none;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .navTitle {
+    display: none;
+  }
+
+  .dropDown {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
+
+  ul {
+    bottom: 50;
+  }
+}

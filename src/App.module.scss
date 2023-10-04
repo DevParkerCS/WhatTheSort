@@ -65,3 +65,31 @@
   margin: 0 auto;
   display: flex;
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .sortText {
+    width: 100vw;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .sortTitle {
+    font-size: 2rem;
+    margin: 1rem;
+  }
+
+  .actionBtnWrapper {
+    display: block;
+
+    .actionBtn {
+      width: 90vw;
+      margin: 0.5rem 0;
+      font-size: 1.5rem;
+    }
+  }
+
+  .barsWrapper {
+    width: 100vw;
+    border-radius: 0px;
+  }
+}

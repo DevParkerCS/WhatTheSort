@@ -5,18 +5,27 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 type NavProps = {
   setSortType: React.Dispatch<React.SetStateAction<number>>;
+  isSorting: boolean;
 };
 
-export const Nav = ({ setSortType }: NavProps) => {
+export const Nav = ({ setSortType, isSorting }: NavProps) => {
   const handleBtnClick = (sortTitle: string, index: string) => {
     setSortType(parseInt(index));
   };
   return (
     <div className={styles.nav}>
       <div className={styles.navTitle}>What The Sort!</div>
-      <div className={styles.dropDown}>
-        <div className={styles.sortType}>
-          Sort Type <FontAwesomeIcon icon={faCaretDown} />
+      <div
+        className={`${styles.dropDown} ${isSorting ? styles.dropInactive : ""}`}
+      >
+        <div className={`${styles.sortType}`}>
+          {isSorting ? (
+            "Sorting ..."
+          ) : (
+            <div>
+              Sort Type <FontAwesomeIcon icon={faCaretDown} />
+            </div>
+          )}
         </div>
         <ul>
           <li
