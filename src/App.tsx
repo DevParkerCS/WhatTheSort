@@ -1,11 +1,14 @@
 import styles from "./App.module.scss";
 import { useEffect, useState } from "react";
+import { bubbleSort, insertionSort } from "./Utils/SortAlgos";
+import { Nav } from "./components/Nav";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
-  const [updated, setUpdated] = useState(false);
   const [divsToSort, setDivsToSort] = useState<JSX.Element[]>([]);
-  const [finishedSorting, setFinishedSorting] = useState(true);
-  const [sortType, setSortType] = useState<number | null>(null);
+  const [isSorting, setIsSorting] = useState(false);
+  const [sortType, setSortType] = useState<number>(0);
+  const [isSorted, setIsSorted] = useState(false);
 
   const sortInfo = [
     {
@@ -37,73 +40,68 @@ function App() {
     },
   ];
 
-  const bubbleSort = async () => {
-    for (let i = 0; i < divsToSort.length - 1; i++) {
-      for (let j = 0; j < divsToSort.length - i - 1; j++) {
-        await new Promise((resolve) =>
-          setTimeout(() => {
-            resolve(true);
-          }, 1)
-        );
-        if (divsToSort[j].props.height > divsToSort[j + 1].props.height) {
-          let temp = divsToSort[j];
-          divsToSort[j] = divsToSort[j + 1];
-          divsToSort[j + 1] = temp;
-          let newArr = divsToSort.slice();
-          setDivsToSort(newArr);
-        }
-      }
-    }
-    setFinishedSorting(true);
-  };
-
   const generateRandomBars = () => {
     setDivsToSort([]);
+    setIsSorted(false);
     for (let i = 0; i < 100; i++) {
       let randHeight = Math.floor(Math.random() * 100);
       setDivsToSort((prevState) => {
         return [...prevState, <BarDiv height={randHeight} />];
       });
     }
-    setUpdated(true);
   };
 
   const decideSortType = () => {
     switch (sortType) {
       case 0:
-        bubbleSort();
+        bubbleSort(divsToSort, setDivsToSort, setIsSorting, setIsSorted);
         break;
       case 1:
         console.log("quicksort");
         break;
+      case 2:
+        insertionSort(divsToSort, setDivsToSort, setIsSorting, setIsSorted);
+        break;
       default:
-        bubbleSort();
+        bubbleSort(divsToSort, setDivsToSort, setIsSorting, setIsSorted);
         break;
     }
   };
 
   useEffect(() => {
-    setDivsToSort([]);
     generateRandomBars();
   }, []);
 
   return (
     <div>
-      <select onChange={(e) => setSortType(parseInt(e.target.value))}>
-        <option value={0}>Bubble Sort</option>
-        <option value={1}>Quick Sort</option>
-        <option value={2}>Insertion Sort</option>
-      </select>
-      <div className={styles.barsWrapper}>
-        {divsToSort.map((m) => {
-          return m;
-        })}
+      <Nav setSortType={setSortType} />
+      <div className={styles.contentWrapper}>
+        <div className={styles.barsWrapper}>
+          {divsToSort.map((m) => {
+            return m;
+          })}
+        </div>
+        <div className={styles.actionBtnWrapper}>
+          <button
+            className={`${styles.actionBtn} ${styles.sortBtn}`}
+            onClick={decideSortType}
+            disabled={isSorting || isSorted}
+          >
+            Sort
+          </button>
+          <button
+            className={`${styles.actionBtn} ${styles.arrBtn}`}
+            disabled={isSorting}
+            onClick={generateRandomBars}
+          >
+            Create New Array
+          </button>
+        </div>
+        <SortInformation
+          sortObj={sortType ? sortInfo[sortType] : sortInfo[0]}
+        />
       </div>
-      <button onClick={decideSortType}>Sort</button>
-      <button disabled={!finishedSorting} onClick={generateRandomBars}>
-        Create New Array
-      </button>
-      <SortInformation sortObj={sortType ? sortInfo[sortType] : sortInfo[0]} />
+      <Footer />
     </div>
   );
 }
@@ -132,12 +130,12 @@ type SortObjType = {
 const SortInformation = ({ sortObj }: SortInformationProps) => {
   return (
     <div>
-      <h1>What Is {sortObj.name}?</h1>
-      <h2>{sortObj.description}</h2>
-      <h1>Why Should You Learn {sortObj.name}?</h1>
-      <h2>{sortObj.whyLearn}</h2>
-      <h1>Real World Example of {sortObj.name}</h1>
-      <h2>{sortObj.realExample}</h2>
+      <h1 className={styles.sortTitle}>What Is {sortObj.name}?</h1>
+      <h2 className={styles.sortText}>{sortObj.description}</h2>
+      <h1 className={styles.sortTitle}>Why Should You Learn {sortObj.name}?</h1>
+      <h2 className={styles.sortText}>{sortObj.whyLearn}</h2>
+      <h1 className={styles.sortTitle}>Real World Example of {sortObj.name}</h1>
+      <h2 className={styles.sortText}>{sortObj.realExample}</h2>
     </div>
   );
 };

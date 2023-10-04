@@ -1,11 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+.contentWrapper {
+  margin-top: 4rem;
+}
 .barDiv {
   width: 10%;
-  background-color: black;
+  background-color: gray;
+  border: 1px solid black;
+  opacity: 0.8;
 }
 
 .barsWrapper {
   display: flex;
-  border: 5px solid gray;
+  border: 5px solid black;
   border-radius: 25px;
   overflow: hidden;
   width: 90vw;
@@ -14,4 +21,47 @@
   background-color: white;
   align-items: flex-end;
   height: 40vh;
+  background-image: url("./grid.jpg");
+}
+
+.sortTitle {
+  text-align: center;
+  font-size: 3rem;
+  margin: 2rem;
+}
+
+.sortText {
+  width: 80vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.actionBtn {
+  width: 50%;
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 25px;
+  scale: 100%;
+  transition: scale 0.25s ease-in-out;
+}
+
+.actionBtn:hover {
+  scale: 105%;
+}
+
+.sortBtn {
+  background-image: linear-gradient(rgb(67, 196, 67), rgb(10, 137, 10));
+}
+
+.arrBtn {
+  background-image: linear-gradient(rgb(89, 155, 177), rgb(33, 121, 150));
+}
+
+.actionBtnWrapper {
+  width: 90vw;
+  margin: 0 auto;
+  display: flex;
 }

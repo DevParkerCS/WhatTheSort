@@ -1,0 +1,56 @@
+.nav {
+  position: fixed;
+  top: 0;
+  height: 3rem;
+  background-color: gray;
+  border-bottom: 2px solid black;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 1;
+
+  .navTitle {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .dropDown {
+    position: relative;
+    padding: 2rem;
+    font-size: 1.5rem;
+
+    .sortType {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: none;
+    height: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  li {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+    left: 10%;
+    cursor: pointer;
+  }
+
+  .dropDown:hover {
+    ul {
+      transition: height 0.25s ease;
+      display: block;
+      height: 100%;
+    }
+  }
+}

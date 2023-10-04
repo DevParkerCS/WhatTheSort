@@ -1,0 +1,16 @@
+.footer {
+  font-size: 2rem;
+  background-color: gray;
+  margin-top: 1rem;
+
+  .footerRef {
+    a {
+      color: inherit;
+    }
+  }
+
+  .footerText {
+    width: 80vw;
+    margin: 0 auto;
+  }
+}
