@@ -1,6 +1,6 @@
 # What The Sort
 
-This project was created to help better understand sorting algorithms and work towards mastery of front end tools.
+This project was created to help better understand sorting algorithms and work towards mastery of front end tools. This project is still in progress.
 
 ## What Is 'What The Sort'?
 
@@ -14,4 +14,6 @@ The tools I used to build this web app include Typescript & Javascript, React, a
 
 I learned more best practices when it comes to web development such as best naming practices, efficiency, and creating a clean workspace.
 
-##
+## AWS Amplify Website
+
+Here is a link to the website hosted on AWS Amplify. Again this project is still in progress. https://main.d3or1kkvm9vtt4.amplifyapp.com/
