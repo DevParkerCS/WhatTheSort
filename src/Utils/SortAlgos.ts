@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 type SortArgs = {
   divsToSort: JSX.Element[];
   setDivsToSort: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
@@ -19,7 +17,7 @@ export const bubbleSort = async ({
 }: SortArgs) => {
   setIsSorting(true);
 
-  for (let i = 0; i < divsToSort.length - 1; i++) {
+  for (let i = 0; i <= divsToSort.length - 1; i++) {
     for (let j = 0; j < divsToSort.length - i - 1; j++) {
       if (isPaused.current) {
         break;
@@ -39,6 +37,9 @@ export const bubbleSort = async ({
     }
     if (isPaused.current) {
       break;
+    }
+    if (i === divsToSort.length - 1) {
+      isPaused.current = true;
     }
   }
   setIsSorting(false);
@@ -70,7 +71,7 @@ export const insertionSort = async ({
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve(true);
-        }, 100 / (sortSpeedRef.current / 10))
+        }, 100 / (sortSpeedRef.current / 5))
       );
       divsToSort[j + 1] = divsToSort[j];
       j = j - 1;
@@ -78,8 +79,10 @@ export const insertionSort = async ({
       setDivsToSort(newArr);
     }
     if (isPaused.current) {
-      isPaused.current = false;
       break;
+    }
+    if (i === divsToSort.length - 1) {
+      isPaused.current = true;
     }
     divsToSort[j + 1] = keyVal;
     setDivsToSort(divsToSort.slice());
