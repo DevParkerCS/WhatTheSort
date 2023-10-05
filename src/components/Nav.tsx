@@ -1,5 +1,5 @@
 import styles from "./Nav.module.scss";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,16 +9,24 @@ type NavProps = {
 };
 
 export const Nav = ({ setSortType, isSorting }: NavProps) => {
-  const handleBtnClick = (sortTitle: string, index: string) => {
-    setSortType(parseInt(index));
-  };
+  const [dropdownShown, setDropdownShown] = useState(false);
+
+  window.addEventListener("scroll", () => {
+    setDropdownShown(false);
+  });
+
   return (
     <div className={styles.nav}>
-      <div className={styles.navTitle}>What The Sort!</div>
+      {/* <div className={styles.navTitle}>What The Sort!</div> */}
       <div
         className={`${styles.dropDown} ${isSorting ? styles.dropInactive : ""}`}
       >
-        <div className={`${styles.sortType}`}>
+        <button
+          onClick={() => {
+            setDropdownShown(!dropdownShown);
+          }}
+          className={`${styles.sortType}`}
+        >
           {isSorting ? (
             "Sorting ..."
           ) : (
@@ -26,40 +34,61 @@ export const Nav = ({ setSortType, isSorting }: NavProps) => {
               Sort Type <FontAwesomeIcon icon={faCaretDown} />
             </div>
           )}
-        </div>
-        <ul>
-          <li
+        </button>
+        <div
+          className={`${styles.dropdownMenu} ${
+            !dropdownShown ? styles.dropInactive : ""
+          }`}
+        >
+          <DropChoice
+            title={"Bubble Sort"}
             value={0}
-            onClick={(e) =>
-              handleBtnClick(
-                "Bubble Sort",
-                (e.target as HTMLInputElement).value
-              )
-            }
-          >
-            Bubble Sort
-          </li>
-          <li
+            setSortType={setSortType}
+            setDropdownShown={setDropdownShown}
+          />
+          <DropChoice
+            title={"Quick Sort"}
             value={1}
-            onClick={(e) =>
-              handleBtnClick("Quick Sort", (e.target as HTMLInputElement).value)
-            }
-          >
-            Quick Sort
-          </li>
-          <li
+            setSortType={setSortType}
+            setDropdownShown={setDropdownShown}
+          />
+          <DropChoice
+            title={"Insertion Sort"}
             value={2}
-            onClick={(e) =>
-              handleBtnClick(
-                "Insertion Sort",
-                (e.target as HTMLInputElement).value
-              )
-            }
-          >
-            Insertion Sort
-          </li>
-        </ul>
+            setSortType={setSortType}
+            setDropdownShown={setDropdownShown}
+          />
+        </div>
       </div>
     </div>
+  );
+};
+
+type DropChoiceType = {
+  title: string;
+  value: number;
+  setSortType: React.Dispatch<SetStateAction<number>>;
+  setDropdownShown: React.Dispatch<SetStateAction<boolean>>;
+};
+
+const DropChoice = ({
+  title,
+  value,
+  setSortType,
+  setDropdownShown,
+}: DropChoiceType) => {
+  const handleBtnClick = (index: string) => {
+    setSortType(parseInt(index));
+    setDropdownShown(false);
+  };
+
+  return (
+    <button
+      className={styles.dropChoice}
+      value={value}
+      onClick={(e) => handleBtnClick((e.target as HTMLInputElement).value)}
+    >
+      {title}
+    </button>
   );
 };
