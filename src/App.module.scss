@@ -26,44 +26,89 @@
 
 .sortTitle {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
   margin: 2rem;
 }
 
 .sortText {
-  width: 80vw;
+  width: 90vw;
+  font-size: 2rem;
   margin: 0 auto;
   text-align: center;
+  font-weight: normal;
 }
 
-.actionBtn {
-  width: 50%;
-  margin: 1rem;
-  padding: 1rem;
-  font-size: 3rem;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 25px;
-  scale: 100%;
-  transition: scale 0.25s ease-in-out;
-}
-
-.actionBtn:hover {
-  scale: 105%;
-}
-
-.sortBtn {
-  background-image: linear-gradient(rgb(67, 196, 67), rgb(10, 137, 10));
-}
-
-.arrBtn {
-  background-image: linear-gradient(rgb(89, 155, 177), rgb(33, 121, 150));
-}
-
-.actionBtnWrapper {
-  width: 90vw;
-  margin: 0 auto;
+.sortSpeedInput {
   display: flex;
+  width: 85vw;
+  margin: 1rem auto;
+  height: 1.5rem;
+}
+
+.speedTitle {
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 1rem;
+}
+
+.actionItemsWrapper {
+  position: relative;
+  .actionItemsCover.hidden {
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    width: 85vw;
+    background-color: rgba(black, 0.8);
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    font-size: 5rem;
+    text-align: center;
+    color: white;
+    z-index: 1;
+  }
+
+  .actionItemsCover {
+    display: none;
+  }
+  .actionBtnWrapper {
+    width: 85vw;
+    margin: 0 auto;
+    display: flex;
+
+    .actionBtn {
+      width: 50%;
+      padding: 1rem;
+      font-size: 3rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 25px;
+      scale: 100%;
+      transition: scale 0.25s ease-in-out;
+    }
+
+    .actionBtn:hover {
+      scale: 105%;
+    }
+
+    .sortBtn {
+      background-image: linear-gradient(rgb(67, 196, 67), rgb(10, 137, 10));
+      margin-right: 1rem;
+    }
+
+    .arrBtn {
+      background-image: linear-gradient(rgb(89, 155, 177), rgb(33, 121, 150));
+      margin-left: 1rem;
+    }
+
+    .pauseBtn {
+      display: none;
+    }
+
+    .pauseBtn.active {
+      display: block;
+    }
+  }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {

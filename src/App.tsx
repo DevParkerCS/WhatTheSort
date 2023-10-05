@@ -1,5 +1,5 @@
 import styles from "./App.module.scss";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState, useRef } from "react";
 import { bubbleSort, insertionSort } from "./Utils/SortAlgos";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer/Footer";
@@ -9,6 +9,8 @@ function App() {
   const [isSorting, setIsSorting] = useState(false);
   const [sortType, setSortType] = useState<number>(0);
   const [isSorted, setIsSorted] = useState(false);
+  const sortSpeedRef = useRef(100);
+  const isPaused = useRef(true);
 
   const sortInfo = [
     {
@@ -52,25 +54,36 @@ function App() {
   };
 
   const decideSortType = () => {
+    const sortArgs = {
+      divsToSort: divsToSort,
+      setDivsToSort: setDivsToSort,
+      setIsSorting: setIsSorting,
+      setIsSorted: setIsSorted,
+      sortSpeedRef: sortSpeedRef,
+      isPaused: isPaused,
+    };
+
+    isPaused.current = false;
+
     switch (sortType) {
       case 0:
-        bubbleSort(divsToSort, setDivsToSort, setIsSorting, setIsSorted);
+        bubbleSort(sortArgs);
         break;
       case 1:
         console.log("quicksort");
         break;
       case 2:
-        insertionSort(divsToSort, setDivsToSort, setIsSorting, setIsSorted);
+        insertionSort(sortArgs);
         break;
       default:
-        bubbleSort(divsToSort, setDivsToSort, setIsSorting, setIsSorted);
+        bubbleSort(sortArgs);
         break;
     }
   };
 
   useEffect(() => {
     generateRandomBars();
-  }, []);
+  }, [sortType]);
 
   return (
     <div>
@@ -81,22 +94,14 @@ function App() {
             return m;
           })}
         </div>
-        <div className={styles.actionBtnWrapper}>
-          <button
-            className={`${styles.actionBtn} ${styles.sortBtn}`}
-            onClick={decideSortType}
-            disabled={isSorting || isSorted}
-          >
-            Sort
-          </button>
-          <button
-            className={`${styles.actionBtn} ${styles.arrBtn}`}
-            disabled={isSorting}
-            onClick={generateRandomBars}
-          >
-            Create New Array
-          </button>
-        </div>
+        <UserActionItems
+          isSorting={isSorting}
+          isSorted={isSorted}
+          generateRandomBars={generateRandomBars}
+          sortSpeedRef={sortSpeedRef}
+          decideSortType={decideSortType}
+          isPaused={isPaused}
+        />
         <SortInformation
           sortObj={sortType ? sortInfo[sortType] : sortInfo[0]}
         />
@@ -113,6 +118,63 @@ type BarDivProps = {
 const BarDiv = ({ height }: BarDivProps) => {
   return (
     <div className={`${styles.barDiv}`} style={{ height: `${height}%` }}></div>
+  );
+};
+
+type UserActionItemsType = {
+  isSorting: boolean;
+  isSorted: boolean;
+  decideSortType: () => void;
+  sortSpeedRef: React.MutableRefObject<number>;
+  generateRandomBars: () => void;
+  isPaused: React.MutableRefObject<boolean>;
+};
+
+const UserActionItems = ({
+  isSorting,
+  isSorted,
+  decideSortType,
+  sortSpeedRef,
+  generateRandomBars,
+  isPaused,
+}: UserActionItemsType) => {
+  return (
+    <div className={styles.actionItemsWrapper}>
+      <h2 className={styles.speedTitle}>Sort Speed</h2>
+      <input
+        min={10}
+        max={100}
+        step={10}
+        className={styles.sortSpeedInput}
+        type="range"
+        defaultValue={100}
+        onChange={(e) => (sortSpeedRef.current = parseInt(e.target.value))}
+      />
+      <div className={styles.actionBtnWrapper}>
+        <button
+          className={`${styles.actionBtn} ${styles.sortBtn}`}
+          onClick={decideSortType}
+          disabled={isSorting || isSorted}
+        >
+          Sort
+        </button>
+        <button
+          className={`${styles.actionBtn} ${styles.arrBtn}`}
+          disabled={isSorting}
+          onClick={generateRandomBars}
+        >
+          Generate New Array
+        </button>
+        <button
+          className={`${styles.actionBtn} ${styles.pauseBtn} ${
+            !isPaused.current ? styles.active : ""
+          }`}
+          onClick={() => (isPaused.current = true)}
+        >
+          Pause
+        </button>
+      </div>
+    </div>
   );
 };
 
