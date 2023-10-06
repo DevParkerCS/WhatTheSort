@@ -102,11 +102,7 @@
     }
 
     .pauseBtn {
-      display: none;
-    }
-
-    .pauseBtn.active {
-      display: block;
+      background-color: red;
     }
   }
 }

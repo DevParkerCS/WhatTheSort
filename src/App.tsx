@@ -5,11 +5,12 @@ import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
+  // States for sorting algorithm
   const [divsToSort, setDivsToSort] = useState<JSX.Element[]>([]);
   const [isSorting, setIsSorting] = useState(false);
   const [sortType, setSortType] = useState<number>(0);
-  const [isSorted, setIsSorted] = useState(false);
-  const sortSpeedRef = useRef(100);
+  const [endIndex, setEndIndex] = useState(99);
+  const sortSpeedRef = useRef(0);
   const isPaused = useRef(true);
 
   const sortInfo = [
@@ -44,13 +45,13 @@ function App() {
 
   const generateRandomBars = () => {
     setDivsToSort([]);
-    setIsSorted(false);
     for (let i = 0; i < 100; i++) {
       let randHeight = Math.floor(Math.random() * 100);
       setDivsToSort((prevState) => {
         return [...prevState, <BarDiv height={randHeight} />];
       });
     }
+    setEndIndex(99);
   };
 
   const decideSortType = () => {
@@ -58,9 +59,10 @@ function App() {
       divsToSort: divsToSort,
       setDivsToSort: setDivsToSort,
       setIsSorting: setIsSorting,
-      setIsSorted: setIsSorted,
       sortSpeedRef: sortSpeedRef,
       isPaused: isPaused,
+      endIndex: endIndex,
+      setEndIndex: setEndIndex,
     };
 
     isPaused.current = false;
@@ -96,7 +98,6 @@ function App() {
         </div>
         <UserActionItems
           isSorting={isSorting}
-          isSorted={isSorted}
           generateRandomBars={generateRandomBars}
           sortSpeedRef={sortSpeedRef}
           decideSortType={decideSortType}
@@ -123,7 +124,6 @@ const BarDiv = ({ height }: BarDivProps) => {
 
 type UserActionItemsType = {
   isSorting: boolean;
-  isSorted: boolean;
   decideSortType: () => void;
   sortSpeedRef: React.MutableRefObject<number>;
   generateRandomBars: () => void;
@@ -132,7 +132,6 @@ type UserActionItemsType = {
 
 const UserActionItems = ({
   isSorting,
-  isSorted,
   decideSortType,
   sortSpeedRef,
   generateRandomBars,
@@ -152,11 +151,12 @@ const UserActionItems = ({
       />
       <div className={styles.actionBtnWrapper}>
         <button
-          className={`${styles.actionBtn} ${styles.sortBtn}`}
-          onClick={decideSortType}
-          disabled={isSorting || isSorted}
+          className={`${styles.actionBtn} ${
+            !isSorting ? styles.sortBtn : styles.pauseBtn
+          }`}
+          onClick={isSorting ? () => (isPaused.current = true) : decideSortType}
         >
-          Sort
+          {!isSorting ? "Sort" : "Pause"}
         </button>
         <button
           className={`${styles.actionBtn} ${styles.arrBtn}`}
@@ -164,14 +164,6 @@ const UserActionItems = ({
           onClick={generateRandomBars}
         >
           Generate New Array
-        </button>
-        <button
-          className={`${styles.actionBtn} ${styles.pauseBtn} ${
-            !isPaused.current ? styles.active : ""
-          }`}
-          onClick={() => (isPaused.current = true)}
-        >
-          Pause
         </button>
       </div>
     </div>

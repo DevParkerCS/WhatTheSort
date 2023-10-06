@@ -2,23 +2,25 @@ type SortArgs = {
   divsToSort: JSX.Element[];
   setDivsToSort: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
   setIsSorting: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSorted: React.Dispatch<React.SetStateAction<boolean>>;
   sortSpeedRef: React.MutableRefObject<number>;
   isPaused: React.MutableRefObject<boolean>;
+  setEndIndex: React.Dispatch<React.SetStateAction<number>>;
+  endIndex: number;
 };
 
 export const bubbleSort = async ({
   divsToSort,
   setDivsToSort,
   setIsSorting,
-  setIsSorted,
   sortSpeedRef,
   isPaused,
+  setEndIndex,
+  endIndex,
 }: SortArgs) => {
   setIsSorting(true);
 
-  for (let i = 0; i <= divsToSort.length - 1; i++) {
-    for (let j = 0; j < divsToSort.length - i - 1; j++) {
+  for (let i = 0; i <= endIndex; i++) {
+    for (let j = 0; j < endIndex - i; j++) {
       if (isPaused.current) {
         break;
       }
@@ -36,6 +38,7 @@ export const bubbleSort = async ({
       }
     }
     if (isPaused.current) {
+      setEndIndex(endIndex - i);
       break;
     }
     if (i === divsToSort.length - 1) {
@@ -43,24 +46,20 @@ export const bubbleSort = async ({
     }
   }
   setIsSorting(false);
-  if (isPaused.current) {
-    setIsSorted(false);
-  } else {
-    setIsSorted(true);
-  }
 };
 
 export const insertionSort = async ({
   divsToSort,
   setDivsToSort,
   setIsSorting,
-  setIsSorted,
   sortSpeedRef,
   isPaused,
+  setEndIndex,
+  endIndex,
 }: SortArgs) => {
   setIsSorting(true);
 
-  for (let i = 0; i < divsToSort.length; i++) {
+  for (let i = 0; i <= endIndex; i++) {
     let keyVal = divsToSort[i];
     let j = i - 1;
 
@@ -88,9 +87,4 @@ export const insertionSort = async ({
     setDivsToSort(divsToSort.slice());
   }
   setIsSorting(false);
-  if (isPaused.current) {
-    setIsSorted(false);
-  } else {
-    setIsSorted(true);
-  }
 };
