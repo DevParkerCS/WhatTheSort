@@ -48,7 +48,7 @@ function App() {
     for (let i = 0; i < 100; i++) {
       let randHeight = Math.floor(Math.random() * 100);
       setDivsToSort((prevState) => {
-        return [...prevState, <BarDiv height={randHeight} />];
+        return [...prevState, <BarDiv isSorting={false} height={randHeight} />];
       });
     }
     setEndIndex(99);
@@ -114,11 +114,15 @@ function App() {
 
 type BarDivProps = {
   height: number;
+  isSorting: boolean;
 };
 
-const BarDiv = ({ height }: BarDivProps) => {
+export const BarDiv = ({ height, isSorting }: BarDivProps) => {
   return (
-    <div className={`${styles.barDiv}`} style={{ height: `${height}%` }}></div>
+    <div
+      className={`${styles.barDiv} ${isSorting ? styles.barSorted : ""}`}
+      style={{ height: `${height}%` }}
+    ></div>
   );
 };
 
