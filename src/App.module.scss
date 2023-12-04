@@ -111,7 +111,7 @@
   }
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media only screen and (max-width: 700px) {
   .sortText {
     width: 100vw;
     font-size: 1.2rem;
@@ -123,16 +123,17 @@
     margin: 1rem;
   }
 
-  .actionBtnWrapper {
-    display: block;
+  .actionItemsWrapper {
+    .actionBtnWrapper {
+      flex-direction: column;
 
-    .actionBtn {
-      width: 90vw;
-      margin: 0.5rem 0;
-      font-size: 1.5rem;
+      .actionBtn {
+        width: 100%;
+        margin: 0.5rem 0;
+        font-size: 1.5rem;
+      }
     }
   }
-
   .barsWrapper {
     width: 100vw;
     border-radius: 0px;
