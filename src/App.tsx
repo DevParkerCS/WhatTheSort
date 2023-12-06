@@ -24,15 +24,6 @@ function App() {
         "In the real world, Bubble Sort can be likened to the process of sorting physical objects, such as arranging a deck of playing cards. Imagine you have a deck of shuffled cards, and you want to organize them in ascending order by rank. You start from the top of the deck and compare adjacent pairs of cards. If the cards are out of order, you swap them, much like Bubble Sort compares and swaps elements in a list. You continue this process, repeatedly moving through the deck until no more swaps are needed. Eventually, all the cards are sorted from the lowest to the highest rank. While Bubble Sort may not be the fastest method for this task, it illustrates the basic principles of comparison and swapping, making it a relatable analogy for understanding sorting algorithms in everyday scenarios.",
     },
     {
-      name: "Quick Sort",
-      description:
-        "Insertion Sort is a simple and intuitive sorting algorithm that arranges a list of elements, such as numbers or data records, into either ascending or descending order. The algorithm works by dividing the list into two parts: the left part, which starts as a single element and gradually grows into a sorted section, and the right part, which contains the unsorted elements. Insertion Sort iteratively takes one element from the unsorted section and inserts it into its correct position within the sorted section, shifting other elements as necessary. This process continues until all elements are sorted. While not as efficient as more complex sorting algorithms for large datasets, Insertion Sort is easy to understand and implement, making it a suitable choice for small lists or as a stepping stone for learning more advanced sorting techniques.",
-      whyLearn:
-        "Learning Quick Sort is essential for anyone interested in computer science, data science, or software development. There are several compelling reasons to explore this algorithm. Firstly, Quick Sort is one of the most efficient sorting algorithms available, making it crucial for optimizing the performance of applications dealing with large datasets. Understanding Quick Sort equips individuals with valuable problem-solving skills and enhances their ability to design efficient algorithms for a wide range of real-world applications, from search engines to database management. Additionally, Quick Sort introduces the concept of divide-and-conquer, a fundamental strategy used in various computer science algorithms, making it a foundational knowledge piece for aspiring programmers and computer scientists. Moreover, it is frequently used in technical interviews, so mastering Quick Sort can significantly enhance one's job prospects in the tech industry. Overall, learning Quick Sort is an investment in both problem-solving skills and career opportunities in the field of computer science and software engineering.",
-      realExample:
-        "In the real world, Quick Sort can be compared to how a mail distribution center efficiently sorts packages based on their destinations. Imagine a bustling distribution center with packages arriving from various locations. To streamline the process, the center selects a particular package as the \"pivot,\" typically one bound for a central hub. The center then quickly routes all other packages: those with destinations before the pivot's location are sent in one direction, and those with destinations after the pivot's location are sent in another. This clever partitioning minimizes the number of times each package needs to be handled and sorted. The center repeats this process recursively for each set of packages, effectively distributing them to their respective destinations in a highly efficient manner. This real-world analogy illustrates how Quick Sort's divide-and-conquer strategy optimizes the sorting process, making it invaluable in logistics and supply chain management, where efficient sorting is essential for timely deliveries.",
-    },
-    {
       name: "Insertion Sort",
       description:
         "Insertion Sort is a simple and intuitive sorting algorithm that arranges a list of elements, such as numbers or data records, into either ascending or descending order. The algorithm works by dividing the list into two parts: the left part, which starts as a single element and gradually grows into a sorted section, and the right part, which contains the unsorted elements. Insertion Sort iteratively takes one element from the unsorted section and inserts it into its correct position within the sorted section, shifting other elements as necessary. This process continues until all elements are sorted. While not as efficient as more complex sorting algorithms for large datasets, Insertion Sort is easy to understand and implement, making it a suitable choice for small lists or as a stepping stone for learning more advanced sorting techniques.",
@@ -72,9 +63,6 @@ function App() {
         bubbleSort(sortArgs);
         break;
       case 1:
-        console.log("quicksort");
-        break;
-      case 2:
         insertionSort(sortArgs);
         break;
       default:

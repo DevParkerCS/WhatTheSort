@@ -47,14 +47,8 @@ export const Nav = ({ setSortType, isSorting }: NavProps) => {
             setDropdownShown={setDropdownShown}
           />
           <DropChoice
-            title={"Quick Sort"}
-            value={1}
-            setSortType={setSortType}
-            setDropdownShown={setDropdownShown}
-          />
-          <DropChoice
             title={"Insertion Sort"}
-            value={2}
+            value={1}
             setSortType={setSortType}
             setDropdownShown={setDropdownShown}
           />
